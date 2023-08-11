@@ -7,58 +7,56 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-segment [{ngModel}]="type">
+  <ion-segment [(ngModel)]="type">
     <ion-segment-button value="pending" layout="icon-start">
-      <ion-icon name="alert-cicle"></ion-icon>
+      <ion-icon name="alert-circle"></ion-icon>
       <ion-label>Vistos</ion-label>
     </ion-segment-button>
-
-
+    
     <ion-segment-button value="done" layout="icon-start">
-      <ion-icon name="checkmark-cicle"></ion-icon>
+      <ion-icon name="checkmark-circle"></ion-icon>
       <ion-label>Não vistos</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <ion-list *ngIf=" type == 'pending'">
-    <ion-item-slinding *ngFor="let filme of filmeService.getFilmes(); let i = index">
-      <ion-item * ngIf="!filme.done">
+    <ion-item-sliding *ngFor="let filme of filmeService.getFilmes(); let i = index">
+      <ion-item *ngIf="!filme.done">
         <ion-label>{{filme.value}}</ion-label>
         <ion-checkbox slot="start" [(ngModel)]="filme.done"></ion-checkbox>
-        <ion-badge color="tertiary" *ngIf="filme.date()">
-          {{filme.date | date 'dd/mm/yyyy'}}
+        <ion-badge color="tertiary" *ngIf="filme.date">
+          {{filme.date | date: 'dd/MM/yyyy'}}
         </ion-badge>
       </ion-item>
-      <ion-item-options side="start">
-        <ion-item-option color="medium" (click)="presentAlertPrompotUpdate(i, filme)">
+      <ion-item-options side="end">
+        <ion-item-option color="medium" (click)="presentAlertPromptUpdate(i, filme)">
           <ion-icon name="create-outline" slot="icon-only"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="light" (click)="presentAlertPrompotDelete(i)">
+        <ion-item-option color="light" (click)="presentAlertPromptDelete(i)">
           <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-    </ion-item-slinding>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-list *ngIf=" type == 'done'">
-    <ion-item-slinding *ngFor="let filme of filmeService.getFilmes(); let i = index">
-      <ion-item * ngIf="filme.done">
+    <ion-item-sliding *ngFor="let filme of filmeService.getFilmes(); let i = index">
+      <ion-item *ngIf="filme.done">
         <ion-label>{{filme.value}}</ion-label>
-        <ion-checkbox slot="start" [(ngModel)]="filme.done"></ion-checkbox>
-        <ion-badge color="tertiary" *ngIf="filme.date()">
-          {{filme.date | date 'dd/mm/yyyy'}}
+        <ion-checkbox slot="end" [(ngModel)]="filme.done"></ion-checkbox>
+        <ion-badge color="tertiary" *ngIf="filme.date">
+          {{filme.date | date: 'dd/MM/yyyy'}}
         </ion-badge>
       </ion-item>
       <ion-item-options side="start">
-        <ion-item-option color="medium" (click)="presentAlertPrompotUpdate(i, filme)">
+        <ion-item-option color="medium" (click)="presentAlertPromptUpdate(i, filme)">
           <ion-icon name="create-outline" slot="icon-only"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="light" (click)="presentAlertPrompotDelete(i)">
+        <ion-item-option color="light" (click)="presentAlertPromptDelete(i)">
           <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-    </ion-item-slinding>
+    </ion-item-sliding>
   </ion-list>
 
 

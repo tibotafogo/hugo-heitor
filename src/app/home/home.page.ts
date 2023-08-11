@@ -13,6 +13,9 @@ export class HomePage {
   constructor( public alertController: AlertController, public filmeService: FilmeService, 
     public toastController: ToastController, public popoverController: PopoverController) {}
 
+    ngOnInit(){
+      this.filmeService.getFromStorage();
+    }
     async presentAlertPromptAdd() {
       const alert = await this.alertController.create({
         header: 'Adicionar filme',
@@ -38,7 +41,7 @@ export class HomePage {
             text: 'Salvar',
             handler: (alertData) => {
               if (alertData.filme != "") {
-                this.filmeService.addFilme(alertData.filme, alertData.date);
+                this.filmeService.addFilmes(alertData.filme, alertData.date);
               }
               else {
                 this.presentToast();
@@ -77,7 +80,7 @@ export class HomePage {
             text: 'Salvar',
             handler: (alertData) => {
               if (alertData.filme != "") {
-                this.filmeService.updateFilme(index, alertData.filme, alertData.date);
+                this.filmeService.updateFilmes(index, alertData.filme, alertData.date);
               }
               else {
                 this.presentToast();
